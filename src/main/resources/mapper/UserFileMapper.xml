@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.UserFileMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.UserFile">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="fileId" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+    <!-- 批量删除用户资源信息 -->
+    <delete id="deleteUserFile" parameterType="com.study.model.UserFile">
+        delete from user_file where userId=#{userId}
+        and fileId in
+        <foreach item="item" collection="fileId" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

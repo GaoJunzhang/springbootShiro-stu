@@ -1,0 +1,121 @@
+<!--top-Header-menu-->
+
+<div th:fragment="top">
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown"
+                                                          data-target="#profile-messages" class="dropdown-toggle"><i
+                    class="icon icon-user"></i> <span class="text">欢迎</span><b class="caret"></b></a>
+                <ul class="dropdown-menu" style="position: absolute">
+                    <li><a href="#" onclick="$('#editPwd').modal();"><i class="icon-user"></i> 修改密码<span
+                            th:text="${userSessionId}"></span></a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="icon-key"></i> 注销</a></li>
+                </ul>
+            </li>
+            <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
+                                                       class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
+                    class="text">消息</span> <span class="label label-important">0</span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i> 新消息</a></li>
+                    <li class="divider"></li>
+                    <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i> 收件箱</a></li>
+                    <li class="divider"></li>
+                    <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i> 发件箱</a></li>
+                    <li class="divider"></li>
+                    <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> 垃圾箱</a></li>
+                </ul>
+            </li>
+            <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+            <li class=""><a href="/logout"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
+        </ul>
+    </div>
+    <!--start-top-serch-->
+    <div id="search">
+        <input type="text" placeholder="站内搜索"/>
+        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+    </div>
+    <div class="modal fade" id="editPwd" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addroleLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="userForm">
+                        <div class="form-group">
+                            <label class="control-label">当前密码:</label>
+                            <input type="password" class="form-control" name="currentPwd" id="currentPwd"
+                                   placeholder="当前密码"/>
+                            <span class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip"
+                                  data-placement="top" data-original-title="必填"><i></i></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">新密码:</label>
+                            <input type="password" class="form-control" name="newPwd" id="newPwd"
+                                   placeholder="新密码 6位以上"/>
+                            <span class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip"
+                                  data-placement="top" data-original-title="必填"><i></i></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">确认密码:</label>
+                            <input type="password" class="form-control" id="newPwdConf" name="password"
+                                   placeholder="新密码 6位以上"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" onclick="editPwd()" class="btn btn-primary">确认</button>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                        function editPwd() {
+                            var currentPwd = $("#currentPwd").val();
+                            var newPwd = $("#newPwd").val();
+                            var newPwdConf = $("#newPwdConf").val();
+                            if (currentPwd == "" || currentPwd == undefined || currentPwd == null) {
+                                return layer.msg('当前密码不能为空', function () {
+                                    //关闭后的操作
+                                });
+                            }
+                            if (newPwd.length < 6 || newPwd.length >= 16) {
+                                return layer.msg('密码长度为6-16', function () {
+                                    //关闭后的操作
+                                });
+                            }
+                            if (newPwd != newPwdConf) {
+                                return layer.msg('两次密码不相同', function () {
+                                    //关闭后的操作
+                                });
+                            }
+
+                            $.ajax({
+                                cache: true,
+                                type: "POST",
+                                url: '/users/editPwd',
+                                data: $('#userForm').serialize(),// 你的formid
+                                async: false,
+                                success: function (data) {
+                                    if (data == "success") {
+                                        layer.msg('修改成功');
+                                        $('#editPwd').modal('hide');
+                                    } else if (data == "pwdError") {
+                                        layer.msg('当前密码错误');
+                                    } else {
+                                        layer.msg('修改失败');
+//                                        $('#addUser').modal('hide');
+                                    }
+                                }
+                            });
+                        }
+                    </script>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--close-top-serch-->
+
+    <!--sidebar-menu-->
+</div>

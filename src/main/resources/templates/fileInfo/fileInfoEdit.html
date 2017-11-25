@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/matrix-style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/matrix-media.css}"/>
+    <link rel="stylesheet" th:href="@{/css/uniform.css}"/>
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{css/video-js.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{css/zoom.css}">
+    <title>用户管理</title>
+</head>
+<body>
+<style>
+
+
+    img {
+        display: block;
+
+        margin: 0 auto;
+    }
+
+    canvas {
+        display: block;
+
+        margin: 0 auto;
+
+    }
+
+    .mask {
+        position: absolute;
+        top: 0px;
+        filter: alpha(opacity=60);
+        background-color: #fff;
+        z-index: 1002;
+        left: 0px;
+        opacity: 0.5;
+        -moz-opacity: 0.5;
+    }
+</style>
+
+<!--Header-part-->
+<div id="header">
+    <h1><a href="dashboard.html">V-STU</a></h1>
+</div>
+<!--close-Header-part-->
+
+<!--top-Header-menu-->
+<div th:include="common/top :: top"></div>
+<div th:include="common/menu :: menu"></div>
+
+<div id="content">
+
+    <div id="content-header">
+        <div id="breadcrumb"><a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a
+                href="/fileInfo" class="current">资源管理</a></a> <a href="#" class="current">新增资源</a></div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>修改资源</h5>
+        </div>
+        <br/>
+        <form class="form-horizontal" role="form" th:action="@{/filesource/edit}" method="POST"
+              enctype="multipart/form-data">
+            <input type="hidden" id="fileaddresstem" name="fileaddresstem" th:value="${fileaddress}"/>
+            <input type="hidden" id="fileaimgtem" name="fileaimgtem" th:value="${fileimgsrc}"/>
+            <input type="hidden" id="appVideoUrltem" name="appVideoUrltem" th:value="${appVideoUrl}"/>
+            <input type="hidden" id="pdfUrltem" name="pdfUrltem" th:value="${pdfUrl}"/>
+            <input type="hidden" id="id" name="id" th:value="${id}"/>
+            <div class="form-group">
+                <div class="col-sm-6" align="right">
+                    <video id="my-video" class="video-js" controls preload="auto" width="540" height="300"
+                           poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                        <source th:src="${fileaddress}" type="video/mp4">
+                        <source th:src="${appVideoUrl}" type="video/mp4">
+                    </video>
+                    <script type="text/javascript">
+                        var myPlayer = videojs('my-video');
+                        videojs("my-video").ready(function () {
+                            var myPlayer = this;
+                            myPlayer.play();
+                        });
+                    </script>
+                </div>
+                <div class="col-sm-6" align="center">
+                    <img th:src="${fileimgsrc}" data-action="zoom" style="width: 540px;height: 300px"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源名称:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="filename" name="filename" th:value="${filename}" type="text"
+                           placeholder="资源名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">副标题:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="subtitle" name="subtitle" th:value="${subtitle}" type="text"
+                           placeholder="副标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">学科:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="disciplines" name="disciplines" th:value="${disciplines}"
+                           type="text" placeholder="学科">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源类型:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="filetype" name="filetype" disabled="disabled">
+                        <option th:selected="${filetype=='1'}" value="1">视频</option>
+                        <option th:selected="${filetype=='0'}" value="0">应用</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源文件:</label>
+                <div class="col-sm-10">
+                    <input id="lefile" name="lefile" type="file" style="display: none;"/>
+                    <div class="input-append">
+
+                        <input id="fileaddress" readonly name="fileaddress" class="col-sm-6 input-large" type="text"
+                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
+                               placeholder="文件上传"/>
+                        <a class="col-sm-4 btn" onclick="$('input[id=lefile]').click();"
+                           style="background-color:#FFD800; height:30px; color:#ffffff; width:100px;">上传</a>
+                    </div>
+                    <script type="text/javascript">
+                        $('input[id=lefile]').change(function () {
+                            $('#fileaddress').val($(this).val());
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源图片:</label>
+                <div class="col-sm-10">
+                    <input id="imgfile" name="imgfile" type="file" style="display: none;"/>
+                    <div class="input-append">
+
+                        <input id="fileimgsrc" readonly name="fileimgsrc" class="col-sm-6 input-large" type="text"
+                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
+                               placeholder="文件上传"/>
+                        <a class="col-sm-4 btn" onclick="$('input[id=imgfile]').click();"
+                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                    </div>
+                    <script type="text/javascript">
+                        $('input[id=imgfile]').change(function () {
+                            $('#fileimgsrc').val($(this).val());
+                        });
+                    </script>
+                </div>
+            </div>
+            <div th:if="${filetype}==0" class="form-group">
+                <label class="col-sm-2 control-label">应用视频:</label>
+                <div class="col-sm-10">
+                    <input id="appVideoFile" name="appVideoFile" type="file" style="display: none;"/>
+                    <div class="input-append">
+
+                        <input id="appVideoUrl" readonly name="appVideoUrl" class="col-sm-6 input-large" type="text"
+                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
+                               placeholder="文件上传"/>
+                        <a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"
+                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                    </div>
+                    <script type="text/javascript">
+                        $('input[id=appVideoFile]').change(function () {
+                            $('#appVideoUrl').val($(this).val());
+                        });
+                    </script>
+                </div>
+            </div>
+            <div th:if="${filetype}==0" class="form-group">
+                <label class="col-sm-2 control-label">资源pdf:</label>
+                <div class="col-sm-10">
+                    <input id="pdffile" name="pdffile" type="file" style="display: none;"/>
+                    <div class="input-append">
+
+                        <input id="pdfUrl" readonly name="pdfUrl" class="col-sm-6 input-large" type="text"
+                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
+                               placeholder="文件上传"/>
+                        <a class="col-sm-4 btn" onclick="$('input[id=pdffile]').click();"
+                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                        <a th:if="${pdfUrl}!=null" th:href="${pdfUrl}" class="col-sm-4 btn"
+                           style="background-color:#FF4500; height:30px; color:#ffffff; width:100px;">PDF下载</a> </a>
+                    </div>
+                    <script type="text/javascript">
+                        $('input[id=pdffile]').change(function () {
+                            $('#pdfUrl').val($(this).val());
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源类型:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="enable" name="enable">
+                        <option th:selected="${enable=='1'}" value="1">可用</option>
+                        <option th:selected="${enable=='0'}" value="0">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源简介:</label>
+                <div class="col-sm-10">
+                    <textarea cols="148" rows="8" name="filedescription" id="filedescription"
+                              th:text="${filedescription}" placeholder="请输入资源简介"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                <button onclick="submitForm()" class="btn btn-lg btn-success">提交</button>
+                <button onclick="backFilelist()" class="btn btn-lg btn-danger">返回</button>
+            </div>
+        </form>
+
+    </div>
+    <div id='mask' class="mask" style="width:100%;height:100%;">
+        <canvas id="c"></canvas>
+        <br/>
+        <span style="color: #fff;align:center;"><strong style="">请等待上传完成···</strong></span>
+    </div>
+</div>
+
+
+<!--Footer-part-->
+<div class="row-fluid">
+    <div id="footer" class="span12"> 2017 &copy; V-STU <a href="http://www.v-stu.com/">v-stu.com</a></div>
+</div>
+<!--end-Footer-part-->
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}" th:sr></script>
+<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/layer.js}"></script>
+<script th:src="@{/js/zoom.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+<script>
+    $(function () {
+        $("#mask").hide();
+    })
+    //兼容火狐、IE8
+    //显示遮罩层
+    function showMask() {
+
+        $("#mask").show();
+    }
+    //隐藏遮罩层
+    function hideMask() {
+
+        $("#mask").hide();
+    }
+    function submitForm() {
+        if ($("#filename").val() == "") {
+            layer.msg("请填写资源名称！");
+            return;
+        }
+        showMask();
+        $("form").submit();
+    }
+    function backFilelist() {
+        window.location.href = "/fileInfo";
+    }
+</script>
+</body>
+</html>
