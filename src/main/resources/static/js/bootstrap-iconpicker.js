@@ -64,7 +64,7 @@
         placement: 'bottom',
         rows: 4,
         search: true,
-        searchText: 'Search icon',
+        searchText: '搜索图标',
         selectedClass: 'btn-warning',
         unselectedClass: 'btn-default'
     };
