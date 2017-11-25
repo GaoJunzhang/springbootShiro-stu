@@ -152,6 +152,16 @@ public class Resources implements Serializable{
         this.checked = checked;
     }
 
+    private String icon;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public String toString() {
         return "Resources{" +
@@ -161,6 +171,7 @@ public class Resources implements Serializable{
                 ", type=" + type +
                 ", parentid=" + parentid +
                 ", sort=" + sort +
+                ", icon=" + icon +
                 '}';
     }
 }

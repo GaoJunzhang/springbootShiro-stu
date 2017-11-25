@@ -20,7 +20,7 @@
   </select>
 
     <select id="loadUserResources" parameterType="java.util.HashMap" resultType="com.study.model.Resources">
-        SELECT re.id,re.name,re.parentId,re.resUrl
+        SELECT re.id,re.name,re.parentId,re.resUrl,re.icon
         FROM resources re LEFT JOIN role_resources rr
         ON re.id = rr.resourcesId
         LEFT JOIN user_role ur
