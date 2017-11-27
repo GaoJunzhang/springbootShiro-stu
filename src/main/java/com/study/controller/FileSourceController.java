@@ -41,49 +41,6 @@ public class FileSourceController {
 
     @Value("${sys.file.savepath}")
     private String path;
-/*
-
-    @RequestMapping("intfc/getfilesource")
-    @ResponseBody
-    public List<FileInfo> resourcesWithSelected(String username){
-        return fileInfoService.loadFileResources(username);
-    }
-
-*/
-
-
-    /*@RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestParam("lefile") MultipartFile file, @RequestParam("imgfile") MultipartFile imgfile, FileInfo fileInfo) {
-        System.out.println(fileInfo.getFilename()+"=====");
-        System.out.println(file.getOriginalFilename()+"文件名");
-        System.out.println(imgfile.getOriginalFilename()+"文件名");
-        if(file.isEmpty()){
-            return "redirect:/addfileView?q=file is empty";
-        }
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
-        String dir = simpleDateFormat.format(date);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMHHmmss");
-        String disk_filename = dateFormat.format(date) + "_" + file.getOriginalFilename();
-        String img_filename = dateFormat.format(date) + "_" + imgfile.getOriginalFilename();
-        String filePath = path + "apfile\\" + dir + "\\" ;
-//        String filePath = path + "//apfile//" + dir + "//" ;
-//        String imgPath = path+"//img//"+dir+"";
-        String imgPath = path+"img\\"+dir+"\\";
-        fileInfo.setFileaddress(filePath+disk_filename);
-        fileInfo.setFileimgsrc(imgPath+img_filename);
-        fileInfo.setCreatetime(dateFormat.format(date));
-        try {
-            FileUtil.uploadFile(file.getBytes(), filePath, disk_filename);
-            FileUtil.uploadFile(imgfile.getBytes(), imgPath, img_filename);
-            fileInfo.setEnable("1");
-            fileInfoService.save(fileInfo);
-            return "redirect:/fileInfo";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/403";
-        }
-    }*/
 
     //上传到阿里云oss
     @RequestMapping(value = "/add", method = RequestMethod.POST)
