@@ -27,8 +27,8 @@
 
 <div id="content">
     <div id="content-header">
-        <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a
-                href="#" class="current">菜单管理</a></div>
+        <div id="breadcrumb"><a href="#" title="首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a
+                href="#" class="current"><i class="current"></i>菜单管理</a></div>
     </div>
     <div class="container-fluid">
         <hr>
@@ -129,8 +129,8 @@
                     <div class="form-group">
                         <label class="control-label">菜单图标:</label>
                         <!-- Example 1 -->
-                        <div data-rows="3" data-cols="10" role="iconpicker" id="icon" name="icon"></div>
-
+                        <div data-rows="3" data-cols="10" role="iconpicker" id="convert_example_2" name="convert_example_2"></div>
+                        <input type="hidden" id="icon" name="icon"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label">排序:</label>
@@ -166,6 +166,9 @@
         $(".checkchild").prop("checked", check);
     });
     $(document).ready(function () {
+        $('#convert_example_2').iconpicker().on('change', function(e) {
+            $("#icon").val(e.icon.substring(5,e.icon.length));
+        });
         table = $('#datatable').DataTable({
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
             "searching": false,
@@ -227,7 +230,10 @@
         var parentId = $("#parentId").val();
         var resUrl = $("#resUrl").val();
         var sort = $("#sort").val();
-
+        var icon = $("#icon").val();
+        if (icon==null||icon=="empty"||icon==""){
+            icon="icon-home";
+        }
         if (name == "" || name == undefined || name == null) {
             return layer.msg('菜单名称不能为空', function () {
                 //关闭后的操作
