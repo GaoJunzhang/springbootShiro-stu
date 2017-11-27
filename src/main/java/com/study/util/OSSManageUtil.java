@@ -3,25 +3,21 @@ package com.study.util;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.aliyun.oss.model.GetObjectRequest;
-import com.aliyun.oss.model.OSSObject;
-import com.aliyun.oss.model.ObjectMetadata;
+import com.aliyun.oss.model.*;
 import com.study.config.OSSConfigure;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 张高 on 2017/10/26.
  */
 
 public class OSSManageUtil {
-
-@Autowired
 
     public static String uploadFile(MultipartFile multipartFile, String remotePath) throws Exception {
         // 流转换 将MultipartFile转换为oss所需的InputStream
@@ -34,7 +30,6 @@ public class OSSManageUtil {
         fileName = new Date().getTime() + fileName.substring(fileName.lastIndexOf("."));
         // 加载配置文件，初始化OSSClient
         OSSConfigure ossConfigure = new OSSConfigure();
-    System.out.print(ossConfigure.getAccessKeyId());
         //        OSSClient ossClient = new OSSClient(ossConfigure.getEndpoint(), ossConfigure.getAccessKeyId(),
         OSSClient ossClient = new OSSClient(ossConfigure.getEndpoint(), ossConfigure.getAccessKeyId(),
                 ossConfigure.getAccessKeySecret());
@@ -80,15 +75,15 @@ public class OSSManageUtil {
 /*
     */
 /**
-     *
-     * @MethodName: updateFile
-     * @Description: 更新文件:只更新内容，不更新文件名和文件地址。
-     *      (因为地址没变，可能存在浏览器原数据缓存，不能及时加载新数据，例如图片更新，请注意)
-     * @param file
-     * @param fileType
-     * @param oldUrl
-     * @return String
-     *//*
+ *
+ * @MethodName: updateFile
+ * @Description: 更新文件:只更新内容，不更新文件名和文件地址。
+ *      (因为地址没变，可能存在浏览器原数据缓存，不能及时加载新数据，例如图片更新，请注意)
+ * @param file
+ * @param fileType
+ * @param oldUrl
+ * @return String
+ *//*
 
     public static String updateFile(File file,String fileType,String oldUrl){
         String fileName = getFileName(oldUrl);
@@ -112,8 +107,7 @@ public class OSSManageUtil {
     /**
      * Description: 判断OSS服务文件上传时文件的contentType @Version1.0
      *
-     * @param FilenameExtension
-     *            文件后缀
+     * @param FilenameExtension 文件后缀
      * @return String
      */
     public static String contentType(String FilenameExtension) {
@@ -152,5 +146,21 @@ public class OSSManageUtil {
             return "application/octet-stream";
         }
         return "text/html";
+    }
+
+    /**
+    * class_name: OSSManageUtil
+    * package: com.study.util
+    * describe: 获取oss对象列表
+    * creat_user: ZhangGaoJun@gaojun.zhag6@icloud.com
+    * creat_date: 2017/11/27
+    * creat_time: 11:09
+    **/
+    public List<OSSObjectSummary> getOSSobjectSummary(String bucketName) throws IOException {
+        OSSConfigure ossConfigure = new OSSConfigure();
+        OSSClient ossClient = new OSSClient(ossConfigure.getEndpoint(), ossConfigure.getAccessKeyId(),
+                ossConfigure.getAccessKeySecret());
+        ObjectListing objectListing = ossClient.listObjects("vstu");
+        return objectListing.getObjectSummaries();
     }
 }
