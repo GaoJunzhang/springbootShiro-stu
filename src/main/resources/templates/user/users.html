@@ -168,7 +168,7 @@
                 <h4 class="modal-title" id="addroleLabel">添加用户</h4>
             </div>
             <div class="modal-body">
-                <form id="userForm">
+                <form id="userAddForm">
                     <div class="form-group">
                         <label  class="control-label">用户名:</label>
                         <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名"/>
@@ -422,12 +422,11 @@ function downloadExcel() {
                 //关闭后的操作
             });
         }
-
         $.ajax({
             cache: true,
             type: "POST",
             url:'users/add',
-            data:$('#userForm').serialize(),// 你的formid
+            data:$('#userAddForm').serialize(),// 你的formid
             async: false,
             success: function(data) {
                 if(data=="success"){
