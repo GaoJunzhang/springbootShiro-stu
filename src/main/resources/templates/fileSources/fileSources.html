@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>资源池</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/matrix-style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/matrix-media.css}"/>
+     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+</head>
+<body>
+<!--Header-part-->
+<div id="header">
+    <h1><a href="dashboard.html">V-STU</a></h1>
+</div>
+<!--close-Header-part-->
+
+<!--top-Header-menu-->
+<div th:include="common/top :: top"></div>
+<div th:include="common/menu :: menu"></div>
+
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="#" title="首页" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+            <a href="#" class="current">资源池</a>
+        </div>
+    </div>
+    <div class="quick-actions_homepage">
+        <ul class="quick-actions"  >
+            <li th:each="fileList:${fileListApp}" class="bg_ly"><a th:href="'/ossFileSource?filename='+${fileList.name}"><div> <i class="icon-globe"></i><span th:text="${fileList.name}"></span></a></li>
+            <li th:each="fileVideo:${fileListVideo}" class="bg_lg"><a th:href="'/ossFileSource?filename='+${fileVideo.name}"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+        </ul>
+    </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+    <div id="footer" class="span12"> 2017 &copy; V-STU <a href="http://www.v-stu.com/">v-stu.com</a> </div>
+</div>
+<!--end-Footer-part-->
+
+
+
+</body>
+</html>

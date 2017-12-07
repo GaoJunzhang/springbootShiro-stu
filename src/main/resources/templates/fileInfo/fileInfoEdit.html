@@ -12,7 +12,7 @@
     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
     <link th:href="@{css/video-js.css}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{css/zoom.css}">
-    <title>用户管理</title>
+    <title>修改资源</title>
 </head>
 <body>
 <style>
@@ -132,11 +132,17 @@
                                placeholder="文件上传"/>
                         <a class="col-sm-4 btn" onclick="$('input[id=lefile]').click();"
                            style="background-color:#FFD800; height:30px; color:#ffffff; width:100px;">上传</a>
+                        <a class="col-sm-4 btn" onclick="showOssFile()"
+                           style="background-color: #ff6e00; height:30px; color:#ffffff; width:100px;">选择云盘</a>
                     </div>
                     <script type="text/javascript">
                         $('input[id=lefile]').change(function () {
                             $('#fileaddress').val($(this).val());
                         });
+                        function showOssFile() {
+                            $('#ossFile').modal();
+
+                        }
                     </script>
                 </div>
             </div>
@@ -228,6 +234,23 @@
         <canvas id="c"></canvas>
         <br/>
         <span style="color: #fff;align:center;"><strong style="">请等待上传完成···</strong></span>
+    </div>
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addroleLabel">资源选择</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="addUser();" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

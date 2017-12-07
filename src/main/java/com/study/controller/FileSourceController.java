@@ -47,8 +47,6 @@ public class FileSourceController {
     public String uploadApp(@RequestParam("lefile") MultipartFile appFile, @RequestParam("imgfile") MultipartFile imgfile,
                             @RequestParam("appVideoFile") MultipartFile appVideoFile,
                             @RequestParam("pdffile") MultipartFile pdffile, FileInfo fileInfo) {
-        System.out.print(appFile.getOriginalFilename());
-        System.out.print(imgfile.getOriginalFilename());
         if (appFile.isEmpty()) {
             return "redirect:/addfileView?q=fi is empty";
 

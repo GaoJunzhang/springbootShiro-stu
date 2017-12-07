@@ -19,24 +19,24 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class HomeController {
-    @RequestMapping(value="/login",method= RequestMethod.GET)
-    public String login(){
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
         return "login";
     }
 
-    @RequestMapping(value="/login",method=RequestMethod.POST)
-    public String login(HttpServletRequest request, User user, Model model){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(HttpServletRequest request, User user, Model model) {
         if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
             request.setAttribute("msg", "用户名或密码不能为空！");
             return "login";
         }
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token=new UsernamePasswordToken(user.getUsername(),user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             subject.login(token);
             subject.getSession().setTimeout(1800000);
             return "redirect:fileInfo";
-        }catch (LockedAccountException lae) {
+        } catch (LockedAccountException lae) {
             token.clear();
             request.setAttribute("msg", "用户已经被锁定不能登录，请与管理员联系！");
             return "login";
@@ -46,39 +46,55 @@ public class HomeController {
             return "login";
         }
     }
-    @RequestMapping(value={"/usersPage",""})
-    public String usersPage(){
+
+    @RequestMapping(value = {"/usersPage", ""})
+    public String usersPage() {
         return "user/users";
     }
 
     @RequestMapping("/rolesPage")
-    public String rolesPage(){
+    public String rolesPage() {
         return "role/roles";
     }
 
     @RequestMapping("/resourcesPage")
-    public String resourcesPage(){
+    public String resourcesPage() {
         return "resources/resources";
     }
 
     @RequestMapping("/403")
-    public String forbidden(){
+    public String forbidden() {
         return "403";
     }
 
     @RequestMapping("/fileInfo")
-    public String filesourcePage(){return  "fileInfo/fileInfo";}
+    public String filesourcePage() {
+        return "fileInfo/fileInfo";
+    }
 
     @RequestMapping(value = "/addfileView")
-    public String addfileView(){return "upload/uploadfile";}
+    public String addfileView() {
+        return "upload/uploadfile";
+    }
 
     @RequestMapping(value = "/editfileView")
-    public String editfileView(){return "fileInfo/fileInfoEdit";}
+    public String editfileView() {
+        return "fileInfo/fileInfoEdit";
+    }
 
     @RequestMapping(value = "/viewUserFile")
-    public String addUserFile(){return "user/fileInfo";}
+    public String addUserFile() {
+        return "user/fileInfo";
+    }
 
     @RequestMapping(value = "/userfileinfo")
-    public String userfileinfo(){return "user/userfileinfo";}
+    public String userfileinfo() {
+        return "user/userfileinfo";
+    }
+
+    @RequestMapping(value = "/fileSources")
+    public String fileSources() {
+        return "fileSources//fileSources";
+    }
 
 }

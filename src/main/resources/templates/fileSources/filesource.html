@@ -10,7 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/matrix-media.css}"/>
     <link rel="stylesheet" th:href="@{/css/uniform.css}"/>
     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
-    <title>添加资源</title>
+    <link th:href="@{css/video-js.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{css/zoom.css}">
+    <title>资源编辑</title>
 </head>
 <body>
 <style>
@@ -43,7 +45,7 @@
 
 <!--Header-part-->
 <div id="header">
-    <h1><a href="dashboard.html">VSTU···</a></h1>
+    <h1><a href="dashboard.html">V-STU</a></h1>
 </div>
 <!--close-Header-part-->
 
@@ -52,33 +54,66 @@
 <div th:include="common/menu :: menu"></div>
 
 <div id="content">
+
     <div id="content-header">
         <div id="breadcrumb"><a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a
-                href="/fileInfo" class="current">资源管理</a></a> <a href="#" class="current">新增资源</a></div>
+                href="/fileInfo" class="current">资源管理</a></a> <a href="#" class="current">资源编辑</a></div>
     </div>
     <div class="widget-box">
         <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-            <h5>新增资源</h5>
+            <h5>资源编辑</h5>
         </div>
         <br/>
-        <form class="form-horizontal" role="form" th:action="@{/filesource/add}" method="POST"
+        <br/>
+        <form class="form-horizontal" role="form" th:action="@{/fileSourceAdd}" method="POST"
               enctype="multipart/form-data">
+            <input type="hidden" id="fileaddress" name="fileaddress" th:value="${filename}"/>
+            <div class="form-group" th:if="!${isVideo}">
+                <div class="col-sm-12" align="center">
+                    <video id="my-video" class="video-js" controls preload="auto" width="800px" height="500px"
+                           poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                        <source th:src="${filename}" type="video/mp4">
+                    </video>
+                    <script type="text/javascript">
+                        var myPlayer = videojs('my-video');
+                        videojs("my-video").ready(function () {
+                            var myPlayer = this;
+                            myPlayer.play();
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group" th:if="${isVideo}">
+                <label class="col-sm-2 control-label">资源文件:</label>
+                <br/>
+                <div class="col-sm-10">
+                    <div class="quick-actions_homepage">
+                        <ul class="quick-actions"  >
+                            <li class="bg_ly"><a target="_parent" th:href="${filename}"><div> <i class="icon-globe"></i><span th:text="${fileD}"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源名称:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" id="filename" name="filename" type="text" placeholder="资源名称">
+                    <input class="form-control" id="filename" name="filename" type="text"
+                           placeholder="资源名称">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">副标题:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" id="subtitle" name="subtitle" type="text" placeholder="副标题">
+                    <input class="form-control" id="subtitle" name="subtitle"  type="text"
+                           placeholder="副标题">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">学科:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" id="disciplines" name="disciplines" type="text" placeholder="学科">
+                    <input class="form-control" id="disciplines" name="disciplines"
+                           type="text" placeholder="学科">
                 </div>
             </div>
             <div class="form-group">
@@ -90,25 +125,6 @@
                     </select>
                 </div>
 
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">资源文件:</label>
-                <div class="col-sm-10">
-                    <input id="lefile" name="lefile" type="file" style="display: none;"/>
-                    <div class="input-append">
-
-                        <input id="fileaddress" readonly name="fileaddress" class="col-sm-6 input-large" type="text"
-                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=lefile]').click();"
-                           style="background-color:#FFD800; height:30px; color:#ffffff; width:100px;">上传</a>
-                    </div>
-                    <script type="text/javascript">
-                        $('input[id=lefile]').change(function () {
-                            $('#fileaddress').val($(this).val());
-                        });
-                    </script>
-                </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源图片:</label>
@@ -168,16 +184,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">资源简介:</label>
-                <div class="col-sm-10">
-                    <textarea cols="148" rows="8" name="filedescription" id="filedescription"
-                              placeholder="请输入资源简介"></textarea>
-                </div>
-
-                <!--  <input type="text" class="form-control" name="filedescription" id="filedescription" placeholder="请输入资源简介"/>
-                  <span class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title="必填"><i></i></span>-->
-            </div>
-            <div class="form-group">
                 <label class="col-sm-2 control-label">资源类型:</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="enable" name="enable">
@@ -186,18 +192,43 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" align="center">
-                <button onclick="submitForm()" class="btn btn-lg btn-success">提交</button>
-                <button onclick="resertForm()" class="btn btn-lg btn-danger">重置</button>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源简介:</label>
+                <div class="col-sm-10">
+                    <textarea cols="148" rows="8" name="filedescription" id="filedescription"
+                              placeholder="请输入资源简介"></textarea>
+                </div>
             </div>
 
+            <div class="form-group" align="center">
+                <button onclick="submitForm()" class="btn btn-lg btn-success">提交</button>
+                <!--<button onclick="backToSource()" class="btn btn-lg btn-danger">返回</button>-->
+            </div>
         </form>
 
     </div>
     <div id='mask' class="mask" style="width:100%;height:100%;">
         <canvas id="c"></canvas>
         <br/>
+        <span style="color: #fff;align:center;"><strong style="">请等待上传完成···</strong></span>
     </div>
+ <!--   <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addroleLabel">资源选择</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="addUser();" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
 </div>
 
 
@@ -210,7 +241,10 @@
 <script th:src="@{/js/bootstrap.min.js}" th:sr></script>
 <script th:src="@{/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/js/layer.js}"></script>
+<script th:src="@{/js/zoom.js}"></script>
 <script th:src="@{/js/index.js}"></script>
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
 <script>
     $(function () {
         $("#AppDiv").hide();
@@ -229,19 +263,16 @@
         $("#mask").hide();
     }
     function submitForm() {
-
-//        alert($("#filename").val());
         if ($("#filename").val() == "") {
             layer.msg("请填写资源名称！");
-            return;
-        }
-        if ($("#fileaddress").val() == "") {
-            layer.msg("请上传资源！");
             return;
         }
         showMask();
         $("form").submit();
     }
+/*    function backToSource() {
+        window.location.href = "/ossFileSources";
+    }*/
     $("select#filetype").change(function () {
         if ($(this).val()==0){
             $("#AppDiv").show();

@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.*;
 import com.study.config.OSSConfigure;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -160,7 +161,13 @@ public class OSSManageUtil {
         OSSConfigure ossConfigure = new OSSConfigure();
         OSSClient ossClient = new OSSClient(ossConfigure.getEndpoint(), ossConfigure.getAccessKeyId(),
                 ossConfigure.getAccessKeySecret());
-        ObjectListing objectListing = ossClient.listObjects("vstu");
+        ObjectListing objectListing = null;
+        if(StringUtils.isEmpty(bucketName)){
+
+            objectListing = ossClient.listObjects("vstu");
+        }else {
+            objectListing = ossClient.listObjects(bucketName);
+        }
         return objectListing.getObjectSummaries();
     }
 }
