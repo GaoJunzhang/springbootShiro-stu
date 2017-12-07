@@ -18,17 +18,21 @@ public class PasswordHelper {
 
 	}
 
-	public  String getPassword(String pwd){
-	    return new SimpleHash(algorithmName, pwd,  ByteSource.Util.bytes(pwd), hashIterations).toHex();
+	public  String getPassword(User user){
+		String newPassword = new SimpleHash(algorithmName, user.getPassword(),  ByteSource.Util.bytes(user.getUsername()), hashIterations).toHex();
+		//String newPassword = new SimpleHash(algorithmName, user.getPassword()).toHex();
+		user.setPassword(newPassword);
+
+		return user.getPassword();
     }
 
 	public static void main(String[] args) {
 		PasswordHelper passwordHelper = new PasswordHelper();
 		User user = new User();
-		user.setUsername("admin");
-			user.setPassword("admin");
+		user.setUsername("vstu");
+			user.setPassword("888888");
 		passwordHelper.encryptPassword(user);
 		System.out.println(user);
-        System.out.print(passwordHelper.getPassword("admin"));
+//        System.out.print(passwordHelper.getPassword("888888"));
 	}
 }

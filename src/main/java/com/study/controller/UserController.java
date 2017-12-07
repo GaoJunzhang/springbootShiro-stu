@@ -113,14 +113,14 @@ public class UserController {
     @RequestMapping(value = "/resetPassword")
     public String resetPassword(Integer id) {
         User user = userService.selectByKey(id);
-        if (user != null)
+        if (user == null)
             return "error";
         try {
             user.setEnable(1);
             user.setPassword("888888");
             PasswordHelper passwordHelper = new PasswordHelper();
             passwordHelper.encryptPassword(user);
-            userService.save(user);
+            userService.updateEquipmentNoByUsername(user);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,12 +189,16 @@ public class UserController {
     public String editPwd(HttpSession session,@RequestParam(value = "currentPwd")String currentPwd, @RequestParam(value = "newPwd")String newPwd){
         try {
             PasswordHelper passwordHelper = new PasswordHelper();
-            String Pwd =passwordHelper.getPassword(currentPwd);
             User user = userService.selectByKey(session.getAttribute("userSessionId"));
+            User user1 = new User();
+            user1.setPassword(currentPwd);
+            user1.setUsername(user.getUsername());
+            String Pwd =passwordHelper.getPassword(user1);
             if (!Pwd.equals(user.getPassword())){
                 return "pwdError";
             }
-            user.setPassword(passwordHelper.getPassword(newPwd));
+            user.setPassword(newPwd);
+            passwordHelper.encryptPassword(user);
             userService.updateEquipmentNoByUsername(user);
             return "success";
         } catch (Exception e) {

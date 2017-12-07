@@ -56,7 +56,10 @@ public class FileInterfaceController {
             return "账号不存在";
         }
         PasswordHelper passwordHelper = new PasswordHelper();
-        String pwdMd5 = passwordHelper.getPassword(pwd);
+        User user1 = new User();
+        user1.setUsername(user.getUsername());
+        user1.setPassword(pwd);
+        String pwdMd5 = passwordHelper.getPassword(user1);
         if(!pwdMd5.equals(user.getPassword())){
             return "密码错误";
         }

@@ -212,7 +212,10 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
                         } else if (password.length() > 100) {
                             rowMessage += "密码的字数不能超过100；";
                         }
-                        tempUserKB.setPassword(passwordHelper.getPassword(password));
+                        User user = new User();
+                        user.setUsername(username);
+                        user.setPassword(password);
+                        tempUserKB.setPassword(passwordHelper.getPassword(user));
                     }
                 } else {
                     rowMessage += "第" + (c + 1) + "列数据有问题，请仔细检查；";
