@@ -29,7 +29,7 @@ public class PasswordHelper {
 	public static void main(String[] args) {
 		PasswordHelper passwordHelper = new PasswordHelper();
 		User user = new User();
-		user.setUsername("vstu");
+		user.setUsername("admin");
 			user.setPassword("888888");
 		passwordHelper.encryptPassword(user);
 		System.out.println(user);

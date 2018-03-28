@@ -7,7 +7,7 @@ import com.study.service.UserRoleService;
 import com.study.service.UserService;
 import com.study.util.ExcelUtil;
 import com.study.util.PasswordHelper;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -130,7 +130,7 @@ public class UserController {
     @RequestMapping("/downloadUsers")
     public void downloadUsers(HttpServletResponse response)throws IOException {
         String[] headers = { "账号", "真实姓名","手机号码", "学校","用户类型","关联设备","是否启用"};
-        String fileName = "用户明细"+System.currentTimeMillis()+".xls"; //文件名
+        String fileName = "用户明细"+System.currentTimeMillis()+".xlsx"; //文件名
         String sheetName = "用户明细";//sheet名
         List<User> list = userService.findAll();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -157,7 +157,8 @@ public class UserController {
                 values[i][6] = "可用";
             }
         }
-        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, headers, values, null);
+//        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, headers, values, null);
+        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName,headers,values,null);
         try {
             this.setResponseHeader(response, fileName);
             OutputStream os = response.getOutputStream();

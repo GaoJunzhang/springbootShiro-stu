@@ -25,8 +25,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yangqj on 2017/4/23.
- */
+* class_name: 
+* param: 
+* describe: TODO
+* creat_user: ZhangGaoJun@zhanggj@seeyoo.cn
+* creat_date: 2018/1/26
+* creat_time: 16:15
+**/
 @Configuration
 public class ShiroConfig {
     @Autowired(required = false)
