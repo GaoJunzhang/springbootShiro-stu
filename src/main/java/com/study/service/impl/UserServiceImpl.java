@@ -192,6 +192,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
             String username = "";
             String password = "";
+            String realname = "";
+            String level = "";
+            String equipmentno = "";
+            String category = "";
+            String mac = "";
+            String mobile = "";
+            String organization = "";
 
             //循环Excel的列
             for (int c = 0; c < totalCells; c++) {
@@ -212,10 +219,46 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
                         } else if (password.length() > 100) {
                             rowMessage += "密码的字数不能超过100；";
                         }
+                    }else if(c == 2){
+                        realname = cell.getStringCellValue();
+                    }else if (c == 3){
+                        organization = cell.getStringCellValue();
+                    }else if(c == 4){
+                        level = cell.getStringCellValue();
+                        if ("学生".equals(level.trim())){
+                            level = "0";
+                        }
+                        if ("老师".equals(level.trim())){
+                            level = "1";
+                        }
+                        if ("普通用户".equals(level.trim())){
+                            level = "2";
+                        }
+                    }else if (c == 5){
+                        equipmentno = cell.getStringCellValue();
+                    }else if(c == 6){
+                        category = cell.getStringCellValue();
+                        if ("vive".equals(category.trim())){
+                            category = "1";
+                        }
+                        if ("一体机".equals(category.trim())){
+                            category = "2";
+                        }
+                    }else if(c == 7){
+                        mac = cell.getStringCellValue();
+                    }else if(c == 8){
+                        mobile = cell.getStringCellValue();
                         User user = new User();
                         user.setUsername(username);
                         user.setPassword(password);
                         tempUserKB.setPassword(passwordHelper.getPassword(user));
+                        tempUserKB.setRealname(realname);
+                        tempUserKB.setOrganization(organization);
+                        tempUserKB.setLevel(level);
+                        tempUserKB.setEquipmentno(equipmentno);
+                        tempUserKB.setCategory(category);
+                        tempUserKB.setMobile(mobile);
+                        tempUserKB.setMac(mac);
                     }
                 } else {
                     rowMessage += "第" + (c + 1) + "列数据有问题，请仔细检查；";

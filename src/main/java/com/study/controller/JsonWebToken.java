@@ -7,7 +7,7 @@ import com.study.result.JsonResult;
 import com.study.result.ResultCode;
 import com.study.service.UserService;
 import com.study.util.JwtHelper;
-import com.study.util.MD5Util;
+import com.study.util.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +37,9 @@ public class JsonWebToken {
             jsonResult = new JsonResult(ResultCode.NOT_LOGIN, "账号错误", null);
             return jsonResult;
         } else {
-            String md5Password = MD5Util.encode(user.getPassword());
-
-            if (md5Password.compareTo(userBean.getPassword()) != 0) {
+            PasswordHelper passwordHelper = new PasswordHelper();
+            passwordHelper.encryptPassword(user);
+            if (user.getPassword().compareTo(userBean.getPassword()) != 0) {
                 jsonResult = new JsonResult(ResultCode.NOT_LOGIN, "密码错误", null);
                 return jsonResult;
             }

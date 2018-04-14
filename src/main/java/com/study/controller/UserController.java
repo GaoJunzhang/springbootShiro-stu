@@ -42,7 +42,6 @@ public class UserController {
                                       @RequestParam(required = false, defaultValue = "10") int length) {
         Map<String, Object> map = new HashMap<>();
         PageInfo<User> pageInfo = userService.selectByPage(user, start, length);
-        System.out.println("pageInfo.getTotal():" + pageInfo.getTotal());
         map.put("draw", draw);
         map.put("recordsTotal", pageInfo.getTotal());
         map.put("recordsFiltered", pageInfo.getTotal());
@@ -120,6 +119,20 @@ public class UserController {
             user.setPassword("888888");
             PasswordHelper passwordHelper = new PasswordHelper();
             passwordHelper.encryptPassword(user);
+            userService.updateEquipmentNoByUsername(user);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+    @RequestMapping(value = "/resetMac")
+    public String resetMac(Integer id) {
+        User user = userService.selectByKey(id);
+        if (user == null)
+            return "error";
+        try {
+            user.setMac("");
             userService.updateEquipmentNoByUsername(user);
             return "success";
         } catch (Exception e) {

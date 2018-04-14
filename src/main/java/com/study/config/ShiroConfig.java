@@ -27,7 +27,7 @@ import java.util.Map;
 /**
 * class_name: 
 * param: 
-* describe: TODO
+* describe: shiro配置
 * creat_user: ZhangGaoJun@zhanggj@seeyoo.cn
 * creat_date: 2018/1/26
 * creat_time: 16:15

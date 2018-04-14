@@ -10,6 +10,12 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="enable" jdbcType="INTEGER" property="enable" />
     <result column="equipmentno" jdbcType="VARCHAR" property="equipmentno" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="organization" jdbcType="VARCHAR" property="organization" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
     <insert id="addUserFile" parameterType="com.study.model.UserFile" useGeneratedKeys="true">
         insert into user_file(userId, fileId) values(#{userId}, #{fileId})
