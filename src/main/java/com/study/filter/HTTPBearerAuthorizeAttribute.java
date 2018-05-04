@@ -5,6 +5,7 @@ import com.study.config.Audience;
 import com.study.result.JsonResult;
 import com.study.result.ResultCode;
 import com.study.util.JwtHelper;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +65,10 @@ public class HTTPBearerAuthorizeAttribute implements Filter {
             {
 
                 auth = auth.substring(6, auth.length());
-                if (JwtHelper.parseJWT(auth, audienceEntity.getBase64Secret()) != null)
+                Claims claims = JwtHelper.parseJWT(auth, audienceEntity.getBase64Secret());
+                if ( claims!= null)
                 {
+                    request.setAttribute("username",claims.get("username"));
                     chain.doFilter(request, response);
                     return;
                 }

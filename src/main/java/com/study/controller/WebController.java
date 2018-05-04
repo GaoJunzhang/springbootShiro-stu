@@ -9,6 +9,7 @@ import com.study.service.UserService;
 import com.study.util.PasswordHelper;
 import com.study.util.VTools;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +35,18 @@ public class WebController {
     private UserService userService;
 
     @RequestMapping(value = "/getUserFiles", method = RequestMethod.POST)
-    public List<FileInfo> getUserFiles(@Param("useraccout") String useraccout) {
+    public List<FileInfo> getUserFiles(@Param("username") String username, HttpServletRequest request) {
         List list = new ArrayList();
-        User user = userService.selectByUsername(useraccout);
+        String uName = request.getAttribute("username")+"";
+        if (StringUtils.isEmpty(username)){
+            username = uName;
+        }
         list.add("用户名不能为空");
-        if (VTools.StringIsNullOrSpace(useraccout)) {
+        if (VTools.StringIsNullOrSpace(username)) {
             return list;
         }
-        List<FileInfo> fileInfoList = fileInfoService.loadFileResources(useraccout);
+        User user = userService.selectByUsername(username);
+        List<FileInfo> fileInfoList = fileInfoService.loadFileResources(username);
         if (fileInfoList.size()>0){
             for (int i=0;i<fileInfoList.size();i++){
                 if ("1".equals(user.getCategory())){
