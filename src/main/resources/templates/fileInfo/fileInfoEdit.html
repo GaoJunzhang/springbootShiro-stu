@@ -121,91 +121,82 @@
                 </div>
 
             </div>
+            <div class="form-group" th:if="${filetype}==0" >
+                <label class="col-sm-2 control-label">包名:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="packageName" name="packageName" type="text" placeholder="包名" th:value="${packageName}">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源文件:</label>
                 <div class="col-sm-10">
-                    <input id="lefile" name="lefile" type="file" style="display: none;"/>
+                    <input id="fileaddress" name="fileaddress" type="text" style="display: none;" th:value="${fileaddress}"/>
                     <div class="input-append">
-
-                        <input id="fileaddress" readonly name="fileaddress" class="col-sm-6 input-large" type="text"
+                        <input id="fileTmpName" readonly name="fileTmpName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=lefile]').click();"
-                           style="background-color:#FFD800; height:30px; color:#ffffff; width:100px;">上传</a>
-                        <a class="col-sm-4 btn" onclick="showOssFile()"
+                               placeholder="资源文件" th:value="${fileaddress}"/>
+                        <!--<input id="fileaddress" readonly name="fileaddress" class="col-sm-6 input-large" type="text"-->
+                        <!--style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"-->
+                        <!--placeholder="文件上传"/>-->
+                        <!--<a class="col-sm-4 btn" onclick="$('input[id=lefile]').click();"-->
+                        <!--style="background-color:#FFD800; height:30px; color:#ffffff; width:100px;">上传</a>-->
+                        <a class="col-sm-4 btn" onclick="chooseFile()"
                            style="background-color: #ff6e00; height:30px; color:#ffffff; width:100px;">选择云盘</a>
                     </div>
-                    <script type="text/javascript">
-                        $('input[id=lefile]').change(function () {
-                            $('#fileaddress').val($(this).val());
-                        });
-                        function showOssFile() {
-                            $('#ossFile').modal();
-
-                        }
-                    </script>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源图片:</label>
                 <div class="col-sm-10">
-                    <input id="imgfile" name="imgfile" type="file" style="display: none;"/>
+                    <input id="fileimgsrc" name="fileimgsrc" type="text" style="display: none;" th:value="${fileimgsrc}"/>
                     <div class="input-append">
 
-                        <input id="fileimgsrc" readonly name="fileimgsrc" class="col-sm-6 input-large" type="text"
+                        <input id="imageTmpName" readonly name="imageTmpName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=imgfile]').click();"
-                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                               placeholder="资源图片" th:value="${fileimgsrc}"/>
+                        <a class="col-sm-4 btn" onclick="$('#ossImage').modal()"
+                           style="background-color: #ff6e00; height:30px; color:#ffffff; width:100px;">选择云盘</a>
                     </div>
-                    <script type="text/javascript">
-                        $('input[id=imgfile]').change(function () {
-                            $('#fileimgsrc').val($(this).val());
-                        });
-                    </script>
                 </div>
             </div>
             <div th:if="${filetype}==0" class="form-group">
                 <label class="col-sm-2 control-label">应用视频:</label>
                 <div class="col-sm-10">
-                    <input id="appVideoFile" name="appVideoFile" type="file" style="display: none;"/>
+                    <input id="appvideourl" name="appvideourl" type="text" style="display: none;" th:value="${appVideoUrl}"/>
                     <div class="input-append">
 
-                        <input id="appVideoUrl" readonly name="appVideoUrl" class="col-sm-6 input-large" type="text"
+                        <input id="appTmpName" readonly name="appTmpName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"
-                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
+                               placeholder="应用视频" th:value="${appVideoUrl}"/>
+                        <!--<a class="col-sm-4 btn" onclick="$('input[id=appVideoFile]').click();"-->
+                        <!--style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>-->
+                        <a class="col-sm-4 btn" onclick="$('#ossAppVideo').modal()"
+                           style="background-color: #ff6e00; height:30px; color:#ffffff; width:100px;">选择云盘</a>
                     </div>
-                    <script type="text/javascript">
-                        $('input[id=appVideoFile]').change(function () {
-                            $('#appVideoUrl').val($(this).val());
-                        });
-                    </script>
                 </div>
             </div>
-            <div th:if="${filetype}==0" class="form-group">
-                <label class="col-sm-2 control-label">资源pdf:</label>
-                <div class="col-sm-10">
-                    <input id="pdffile" name="pdffile" type="file" style="display: none;"/>
-                    <div class="input-append">
+            <!--<div th:if="${filetype}==0" class="form-group">-->
+            <!--<label class="col-sm-2 control-label">资源pdf:</label>-->
+            <!--<div class="col-sm-10">-->
+            <!--<input id="pdffile" name="pdffile" type="file" style="display: none;"/>-->
+            <!--<div class="input-append">-->
 
-                        <input id="pdfUrl" readonly name="pdfUrl" class="col-sm-6 input-large" type="text"
-                               style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
-                               placeholder="文件上传"/>
-                        <a class="col-sm-4 btn" onclick="$('input[id=pdffile]').click();"
-                           style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>
-                        <a th:if="${pdfUrl}!=null" th:href="${pdfUrl}" class="col-sm-4 btn"
-                           style="background-color:#FF4500; height:30px; color:#ffffff; width:100px;">PDF下载</a> </a>
-                    </div>
-                    <script type="text/javascript">
-                        $('input[id=pdffile]').change(function () {
-                            $('#pdfUrl').val($(this).val());
-                        });
-                    </script>
-                </div>
-            </div>
+            <!--<input id="pdfUrl" readonly name="pdfUrl" class="col-sm-6 input-large" type="text"-->
+            <!--style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"-->
+            <!--placeholder="文件上传"/>-->
+            <!--<a class="col-sm-4 btn" onclick="$('input[id=pdffile]').click();"-->
+            <!--style="background-color:#ADFF2F; height:30px; color:#ffffff; width:100px;">上传</a>-->
+            <!--<a th:if="${pdfUrl}!=null" th:href="${pdfUrl}" class="col-sm-4 btn"-->
+            <!--style="background-color:#FF4500; height:30px; color:#ffffff; width:100px;">PDF下载</a> </a>-->
+            <!--</div>-->
+            <!--<script type="text/javascript">-->
+            <!--$('input[id=pdffile]').change(function () {-->
+            <!--$('#pdfUrl').val($(this).val());-->
+            <!--});-->
+            <!--</script>-->
+            <!--</div>-->
+            <!--</div>-->
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源类型:</label>
                 <div class="col-sm-10">
@@ -252,6 +243,102 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="ossFile" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addroleLabel">资源选择</h4>
+                    <input type="hidden" id="tmpFileName"/>
+                    <input type="hidden" id="tmpFileUrl"/>
+                </div>
+                <div class="modal-body">
+                    <div class="quick-actions_homepage">
+                        <ul class="quick-actions"  id="video-ul">
+                            <li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="selectFile();" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ossApp" tabindex="-1" role="dialog" aria-labelledby="addAppLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addAppLabel">应用选择</h4>
+                <input type="hidden" id="tmpAppName"/>
+                <input type="hidden" id="tmpAppUrl"/>
+            </div>
+            <div class="modal-body">
+                <div class="quick-actions_homepage">
+                    <ul class="quick-actions"  id="app-ul">
+                        <li th:each="fileApp:${fileListApp}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="selectApp();" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ossAppVideo" tabindex="-1" role="dialog" aria-labelledby="addAppVideoLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addAppVideoLabel">应用视频选择</h4>
+                <input type="hidden" id="tmpAppVideoName"/>
+                <input type="hidden" id="tmpAppVideoUrl"/>
+            </div>
+            <div class="modal-body">
+                <div class="quick-actions_homepage">
+                    <ul class="quick-actions"  id="appVideo-ul">
+                        <li th:each="fileApp:${fileListVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="selectAppVideo();" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ossImage" tabindex="-1" role="dialog" aria-labelledby="addImageLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addImageLabel">图片选择</h4>
+                <input type="hidden" id="tmpImageName"/>
+                <input type="hidden" id="tmpImageUrl"/>
+            </div>
+            <div class="modal-body">
+                <div class="quick-actions_homepage">
+                    <ul class="quick-actions"  id="image-ul">
+                        <li th:each="fileImage:${filelistImage}" th:value="${fileImage.address}" class="bg_lg"><img th:src="${fileImage.address}" style="width:120px;height: 80px;"/><span th:text="${fileImage.name}"></span></li>
+                        <!--<li th:each="fileImage:${filelistImage}" th:value="${fileImage.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileImage.name}"></span></a></li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="selectImage();" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 
@@ -271,6 +358,35 @@
 <script>
     $(function () {
         $("#mask").hide();
+        // $("#packageName").hide();
+        // $("#packageDiv").hide();
+
+        $("#video-ul li").click(
+
+            function() {
+                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+                $("#tmpFileName").val($(this).text());
+                $("#tmpFileUrl").val($(this).attr("value"));
+            });
+        $("#app-ul li").click(
+
+            function() {
+                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+                $("#tmpAppName").val($(this).text());
+                $("#tmpAppUrl").val($(this).attr("value"));
+            });
+        $("#appVideo-ul li").click(
+            function() {
+                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+                $("#tmpAppVideoName").val($(this).text());
+                $("#tmpAppVideoUrl").val($(this).attr("value"));
+            });
+        $("#image-ul li").click(
+            function() {
+                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+                $("#tmpImageName").val($(this).text());
+                $("#tmpImageUrl").val($(this).attr("value"));
+            });
     })
     //兼容火狐、IE8
     //显示遮罩层
@@ -293,6 +409,59 @@
     }
     function backFilelist() {
         window.location.href = "/fileInfo";
+    }
+
+    function chooseFile() {
+        if ($("#filetype").val() == 0){
+
+            $('#ossApp').modal()
+        }else {
+            $('#ossFile').modal()
+        }
+    }
+    function selectFile() {
+        var tmpFileName = $("#tmpFileName").val();
+        var tmpFileUrl = $("#tmpFileUrl").val();
+        if (tmpFileName==null||tmpFileName==""||tmpFileUrl==null||tmpFileUrl==""){
+            alert("请选择一个视频");
+            return;
+        }
+        $("#fileTmpName").val(tmpFileName);
+        $("#fileaddress").val(tmpFileUrl);
+        $("#ossFile").modal('hide');
+    }
+    function selectApp() {
+        var tmpAppName = $("#tmpAppName").val();
+        var tmpAppUrl = $("#tmpAppUrl").val();
+        if (tmpAppName==null||tmpAppName==""||tmpAppUrl==null||tmpAppUrl==""){
+            alert("请选择一个应用");
+            return;
+        }
+        $("#fileTmpName").val(tmpAppName);
+        $("#fileaddress").val(tmpAppUrl);
+        $("#ossApp").modal('hide');
+    }
+    function selectAppVideo() {
+        var tmpAppVideoName = $("#tmpAppVideoName").val();
+        var tmpAppVideoUrl = $("#tmpAppVideoUrl").val();
+        if (tmpAppVideoName==null||tmpAppVideoName==""||tmpAppVideoUrl==null||tmpAppVideoUrl==""){
+            alert("请选择一个应用");
+            return;
+        }
+        $("#appTmpName").val(tmpAppVideoName);
+        $("#appvideourl").val(tmpAppVideoUrl);
+        $("#ossAppVideo").modal('hide');
+    }
+    function selectImage() {
+        var tmpImageName = $("#tmpImageName").val();
+        var tmpImageUrl = $("#tmpImageUrl").val();
+        if (tmpImageName==null||tmpImageName==""||tmpImageUrl==null||tmpImageUrl==""){
+            alert("请选择一个应用");
+            return;
+        }
+        $("#imageTmpName").val(tmpImageName);
+        $("#fileimgsrc").val(tmpImageUrl);
+        $("#ossImage").modal('hide');
     }
 </script>
 </body>

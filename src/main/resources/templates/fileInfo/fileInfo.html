@@ -72,16 +72,16 @@
                                 <th>
                                     <input type="checkbox" class="checkall" />
                                 </th>
-                                <th>ID</th>
+                                <!--<th>ID</th>-->
                                 <th>资源名</th>
-                                <th>资源地址</th>
-                                <th>副标题</th>
-                                <th>学科</th>
-                                <th>资源类型</th>
-                                <th>资源介绍</th>
-                                <th>资源图片</th>
-                                <th>创建时间</th>
-                                <th>是否启用</th>
+                                <!--<th>资源地址</th>-->
+                                <!--<th>副标题</th>-->
+                                <!--<th>学科</th>-->
+                                <!--<th>资源类型</th>-->
+                                <!--<th>资源介绍</th>-->
+                                <!--<th>资源图片</th>-->
+                                <!--<th>创建时间</th>-->
+                                <!--<th>是否启用</th>-->
                             </tr>
                             </thead>
                         </table>
@@ -237,57 +237,57 @@
                     },
                     "bSortable": false
                 },
-                { "data": "id" },
+                // { "data": "id" },
                 { "data": "filename" },
-                { "data": "fileaddress" },
-                { "data": "subtitle" },
-                { "data": "disciplines" },
-                { "data": "filetype" },
-                { "data": "filedescription" },
-                { "data": "fileimgsrc" },
-                { "data": "createtime" },
-                { "data": "enable" },
+                // { "data": "fileaddress" },
+                // { "data": "subtitle" },
+                // { "data": "disciplines" },
+                // { "data": "filetype" },
+                // { "data": "filedescription" },
+                // { "data": "fileimgsrc" },
+                // { "data": "createtime" },
+                // { "data": "enable" },
             ],
             columnDefs:[
-                { "orderable": false, "targets": 1 },
-                { "orderable": false, "targets": 2 },
-                /*{
-                    "orderable":false,
-                    "render":function (data,type,row) {
-                        return "  <a href="filesource\\editfileView?id="+row.id+"" > "+row.filename +"</a>";
-                    },
-                    "targets":2
-                },*/
-                {
-                    "orderable": false,
-                    "render": function(data, type, row) {
-                        if(data==1){
-                            return "视频";
-                        }else{
-                            return "应用";
-                        }
-                    },
-                    "targets": 6
-                },
-                {
-                    "orderable":false,
-                    "render":function (data,type,row) {
-                        return "<img src=\""+row.fileimgsrc+"\" style='width: 60px;height: 30' class=\"img-responsive center-block\" >";
-                    },
-                    "targets":8
-                }
-                ,
-                {
-                    "orderable": false,
-                    "render": function(data, type, row) {
-                        if(data==1){
-                            return "可用";
-                        }else{
-                            return "禁用";
-                        }
-                    },
-                    "targets": 10
-                },
+                { "orderable": false, "targets": 0 },
+                // { "orderable": false, "targets": 2 },
+                // /*{
+                //     "orderable":false,
+                //     "render":function (data,type,row) {
+                //         return "  <a href="filesource\\editfileView?id="+row.id+"" > "+row.filename +"</a>";
+                //     },
+                //     "targets":2
+                // },*/
+                // {
+                //     "orderable": false,
+                //     "render": function(data, type, row) {
+                //         if(data==1){
+                //             return "视频";
+                //         }else{
+                //             return "应用";
+                //         }
+                //     },
+                //     "targets": 6
+                // },
+                // {
+                //     "orderable":false,
+                //     "render":function (data,type,row) {
+                //         return "<img src=\""+row.fileimgsrc+"\" style='width: 60px;height: 30' class=\"img-responsive center-block\" >";
+                //     },
+                //     "targets":8
+                // }
+                // ,
+                // {
+                //     "orderable": false,
+                //     "render": function(data, type, row) {
+                //         if(data==1){
+                //             return "可用";
+                //         }else{
+                //             return "禁用";
+                //         }
+                //     },
+                //     "targets": 10
+                // },
             ],
 
         } );

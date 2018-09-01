@@ -44,39 +44,37 @@ public class FileSourceController {
 
     //上传到阿里云oss
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String uploadApp(@RequestParam("lefile") MultipartFile appFile, @RequestParam("imgfile") MultipartFile imgfile,
-                            @RequestParam("appVideoFile") MultipartFile appVideoFile,
-                            @RequestParam("pdffile") MultipartFile pdffile, FileInfo fileInfo) {
-        if (appFile.isEmpty()) {
-            return "redirect:/addfileView?q=fi is empty";
-
-        }
-        if (fileInfo == null) {
-            return "redirect:/addfileView?q=file is empty";
-        }
+    public String uploadApp(FileInfo fileInfo) {
+//        if (appFile.isEmpty()) {
+//            return "redirect:/addfileView?q=fi is empty";
+//
+//        }
+//        if (fileInfo == null) {
+//            return "redirect:/addfileView?q=file is empty";
+//        }
         try {
-            String apkUrl = OSSManageUtil.uploadFile(appFile,appFile.getName());
-            String imgUrl = "";
-            if(!imgfile.isEmpty()){
-
-                imgUrl = OSSManageUtil.uploadFile(imgfile,imgfile.getName());
-            }
-            String appVideoUrl = "";
-            if(!appVideoFile.isEmpty()){
-
-                appVideoUrl = OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName());
-            }
-            String pdfUrl = "";
-            if(!pdffile.isEmpty()){
-
-                pdfUrl = OSSManageUtil.uploadFile(pdffile,pdffile.getName());
-            }
-            System.out.println("应用地址："+apkUrl);
-            System.out.println("图片地址："+imgUrl);
-            fileInfo.setFileaddress(apkUrl);
-            fileInfo.setFileimgsrc(imgUrl);
-            fileInfo.setAppvideourl(appVideoUrl);
-            fileInfo.setPdfurl(pdfUrl);
+//            String apkUrl = OSSManageUtil.uploadFile(appFile,appFile.getName());
+//            String imgUrl = "";
+//            if(!imgfile.isEmpty()){
+//
+//                imgUrl = OSSManageUtil.uploadFile(imgfile,imgfile.getName());
+//            }
+//            String appVideoUrl = "";
+//            if(!appVideoFile.isEmpty()){
+//
+//                appVideoUrl = OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName());
+//            }
+//            String pdfUrl = "";
+//            if(!pdffile.isEmpty()){
+//
+//                pdfUrl = OSSManageUtil.uploadFile(pdffile,pdffile.getName());
+//            }
+//            System.out.println("应用地址："+apkUrl);
+//            System.out.println("图片地址："+imgUrl);
+//            fileInfo.setFileaddress(apkUrl);
+//            fileInfo.setFileimgsrc(imgUrl);
+//            fileInfo.setAppvideourl(appVideoUrl);
+//            fileInfo.setPdfurl(pdfUrl);
             fileInfo.setCreatetime(VTools.getCurrentDate());
             fileInfoService.save(fileInfo);
         } catch (Exception e) {
@@ -134,48 +132,44 @@ public class FileSourceController {
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    public String editFileInfo(@RequestParam("lefile") MultipartFile appFile, @RequestParam("imgfile") MultipartFile imgfile,
-                               @RequestParam("fileaddresstem")String fileaddresstem, @RequestParam("fileaimgtem")String fileaimgtem,
-                               @RequestParam("appVideoUrltem")String appVideoUrltem, @RequestParam("pdfUrltem")String pdfUrltem,
-                               @RequestParam("appVideoFile") MultipartFile appVideoFile,
-                               @RequestParam("pdffile") MultipartFile pdffile,FileInfo fileInfo){
-        OSSConfigure ossConfigure = null;
-        try {
-            ossConfigure = new OSSConfigure();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if(!appFile.isEmpty()){
-                OSSManageUtil.deleteFile(ossConfigure,fileaddresstem.replace(ossConfigure.getAccessUrl()+"/",""));
-                fileInfo.setFileaddress(OSSManageUtil.uploadFile(appFile,appFile.getName()));
-            }else {
-                fileInfo.setFileaddress(fileaddresstem);
-            }
-            if(!imgfile.isEmpty()){
-
-                OSSManageUtil.deleteFile(ossConfigure,fileaimgtem.replace(ossConfigure.getAccessUrl()+"/",""));
-                fileInfo.setFileimgsrc(OSSManageUtil.uploadFile(imgfile,imgfile.getName()));
-            }else {
-                fileInfo.setFileimgsrc(fileaimgtem);
-            }
-            if(!appVideoFile.isEmpty()){
-
-                OSSManageUtil.deleteFile(ossConfigure,appVideoUrltem.replace(ossConfigure.getAccessUrl()+"/",""));
-                fileInfo.setAppvideourl(OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName()));
-            }else {
-                fileInfo.setAppvideourl(appVideoUrltem);
-            }
-            if(!pdffile.isEmpty()){
-
-                OSSManageUtil.deleteFile(ossConfigure,pdfUrltem.replace(ossConfigure.getAccessUrl()+"/",""));
-                fileInfo.setPdfurl(OSSManageUtil.uploadFile(pdffile,pdffile.getName()));
-            }else {
-                fileInfo.setPdfurl(pdfUrltem);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String editFileInfo(FileInfo fileInfo){
+//        OSSConfigure ossConfigure = null;
+//        try {
+//            ossConfigure = new OSSConfigure();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            if(!appFile.isEmpty()){
+//                OSSManageUtil.deleteFile(ossConfigure,fileaddresstem.replace(ossConfigure.getAccessUrl()+"/",""));
+//                fileInfo.setFileaddress(OSSManageUtil.uploadFile(appFile,appFile.getName()));
+//            }else {
+//                fileInfo.setFileaddress(fileaddresstem);
+//            }
+//            if(!imgfile.isEmpty()){
+//
+//                OSSManageUtil.deleteFile(ossConfigure,fileaimgtem.replace(ossConfigure.getAccessUrl()+"/",""));
+//                fileInfo.setFileimgsrc(OSSManageUtil.uploadFile(imgfile,imgfile.getName()));
+//            }else {
+//                fileInfo.setFileimgsrc(fileaimgtem);
+//            }
+//            if(!appVideoFile.isEmpty()){
+//
+//                OSSManageUtil.deleteFile(ossConfigure,appVideoUrltem.replace(ossConfigure.getAccessUrl()+"/",""));
+//                fileInfo.setAppvideourl(OSSManageUtil.uploadFile(appVideoFile,appVideoFile.getName()));
+//            }else {
+//                fileInfo.setAppvideourl(appVideoUrltem);
+//            }
+//            if(!pdffile.isEmpty()){
+//
+//                OSSManageUtil.deleteFile(ossConfigure,pdfUrltem.replace(ossConfigure.getAccessUrl()+"/",""));
+//                fileInfo.setPdfurl(OSSManageUtil.uploadFile(pdffile,pdffile.getName()));
+//            }else {
+//                fileInfo.setPdfurl(pdfUrltem);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         fileInfo.setCreatetime(VTools.getCurrentDate());
         fileInfoService.updateNotNull(fileInfo);
         return "redirect:/fileInfo";
