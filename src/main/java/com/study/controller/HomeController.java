@@ -93,6 +93,7 @@ public class HomeController {
             List<Map> listApp = new ArrayList<>();
             List<Map> listVideo = new ArrayList<>();
             List<Map> listImage = new ArrayList<>();
+            List<Map> listPreviewVideo = new ArrayList<>();
             String strTemp = "";
             for (int i = 0; i < objectSummaries.size(); i++) {
                 strTemp = objectSummaries.get(i).getKey();
@@ -112,10 +113,17 @@ public class HomeController {
                     map.put("name", strTemp.replace("imgfile/", ""));
                     listImage.add(map);
                 }
+                if (strTemp.contains("prefile")&&strTemp.contains(".")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("prefile/", ""));
+                    listPreviewVideo.add(map);
+                }
             }
             model.addAttribute("fileListApp", listApp);
             model.addAttribute("fileListVideo", listVideo);
             model.addAttribute("filelistImage", listImage);
+            model.addAttribute("filePreVideo",listPreviewVideo);
 //            return "fileSources/fileSources";
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,6 +141,7 @@ public class HomeController {
             List<Map> listApp = new ArrayList<>();
             List<Map> listVideo = new ArrayList<>();
             List<Map> listImage = new ArrayList<>();
+            List<Map> listPreviewVideo = new ArrayList<>();
             String strTemp = "";
             for (int i = 0; i < objectSummaries.size(); i++) {
                 strTemp = objectSummaries.get(i).getKey();
@@ -152,10 +161,17 @@ public class HomeController {
                     map.put("name", strTemp.replace("imgfile/", ""));
                     listImage.add(map);
                 }
+                if (strTemp.contains("prefile")&&strTemp.contains(".")) {
+                    Map map = new HashMap();
+                    map.put("address", accessUrl + "/" + strTemp);
+                    map.put("name", strTemp.replace("prefile/", ""));
+                    listPreviewVideo.add(map);
+                }
             }
             model.addAttribute("fileListApp", listApp);
             model.addAttribute("fileListVideo", listVideo);
             model.addAttribute("filelistImage", listImage);
+            model.addAttribute("filePreVideo",listPreviewVideo);
 //            return "fileSources/fileSources";
         } catch (IOException e) {
             e.printStackTrace();
