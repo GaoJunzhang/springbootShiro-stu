@@ -57,11 +57,11 @@
 
     <div id="content-header">
         <div id="breadcrumb"><a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a
-                href="/fileInfo" class="current">资源管理</a></a> <a href="#" class="current">新增资源</a></div>
+                href="/fileInfo" class="current">资源管理</a></a> <a href="#" class="current">编辑资源</a></div>
     </div>
     <div class="widget-box">
         <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-            <h5>修改资源</h5>
+            <h5>编辑资源</h5>
         </div>
         <br/>
         <form class="form-horizontal" role="form" th:action="@{/filesource/edit}" method="POST"
@@ -121,16 +121,18 @@
                 </div>
 
             </div>
-            <div class="form-group" th:if="${filetype}==0" >
+            <div class="form-group" th:if="${filetype}==0">
                 <label class="col-sm-2 control-label">包名:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" id="packageName" name="packageName" type="text" placeholder="包名" th:value="${packageName}">
+                    <input class="form-control" id="packageName" name="packageName" type="text" placeholder="包名"
+                           th:value="${packageName}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源文件:</label>
                 <div class="col-sm-10">
-                    <input id="fileaddress" name="fileaddress" type="text" style="display: none;" th:value="${fileaddress}"/>
+                    <input id="fileaddress" name="fileaddress" type="text" style="display: none;"
+                           th:value="${fileaddress}"/>
                     <div class="input-append">
                         <input id="fileTmpName" readonly name="fileTmpName" class="col-sm-6 input-large" type="text"
                                style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;"
@@ -149,7 +151,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">资源图片:</label>
                 <div class="col-sm-10">
-                    <input id="fileimgsrc" name="fileimgsrc" type="text" style="display: none;" th:value="${fileimgsrc}"/>
+                    <input id="fileimgsrc" name="fileimgsrc" type="text" style="display: none;"
+                           th:value="${fileimgsrc}"/>
                     <div class="input-append">
 
                         <input id="imageTmpName" readonly name="imageTmpName" class="col-sm-6 input-large" type="text"
@@ -163,7 +166,8 @@
             <div th:if="${filetype}==0" class="form-group">
                 <label class="col-sm-2 control-label">应用视频:</label>
                 <div class="col-sm-10">
-                    <input id="appvideourl" name="appvideourl" type="text" style="display: none;" th:value="${appVideoUrl}"/>
+                    <input id="appvideourl" name="appvideourl" type="text" style="display: none;"
+                           th:value="${appVideoUrl}"/>
                     <div class="input-append">
 
                         <input id="appTmpName" readonly name="appTmpName" class="col-sm-6 input-large" type="text"
@@ -230,7 +234,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="addroleLabel">资源选择</h4>
                 </div>
                 <div class="modal-body">
@@ -248,15 +253,29 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="addroleLabel">资源选择</h4>
                     <input type="hidden" id="tmpFileName"/>
                     <input type="hidden" id="tmpFileUrl"/>
                 </div>
                 <div class="modal-body">
                     <div class="quick-actions_homepage">
-                        <ul class="quick-actions"  id="video-ul">
-                            <li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+                        <ul class="quick-actions" id="video-ul">
+                            <li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"  style="width:165px;height: 120px;">
+                                <!--<a href="#" >-->
+                                <video id="my-video1" class="video-js" controls preload="auto"
+                                       th:poster="${fileimgsrc}" data-setup="{}" width="165" height="105">
+                                    <source th:src="${fileVideo.address}" type="video/mp4">
+                                    <!--<source th:src="${appVideoUrl}" type="video/mp4">-->
+                                </video>
+                                <span th:text="${fileVideo.name}"></span>
+                                <!--</a>-->
+                            </li>
+                            <!--<li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"><a-->
+                                    <!--href="#">-->
+                                <!--<div><i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span>-->
+                            <!--</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -273,15 +292,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="addAppLabel">应用选择</h4>
                 <input type="hidden" id="tmpAppName"/>
                 <input type="hidden" id="tmpAppUrl"/>
             </div>
             <div class="modal-body">
                 <div class="quick-actions_homepage">
-                    <ul class="quick-actions"  id="app-ul">
-                        <li th:each="fileApp:${fileListApp}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                    <ul class="quick-actions" id="app-ul">
+                        <li th:each="fileApp:${fileListApp}" th:value="${fileApp.address}" class="bg_lg"><a href="#">
+                            <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span>
+                        </a></li>
                     </ul>
                 </div>
             </div>
@@ -292,19 +314,30 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ossAppVideo" tabindex="-1" role="dialog" aria-labelledby="addAppVideoLabel">
+<div class="modal fade" id="ossAppVideo" tabindex="-1" role="dialog" aria-labelledby="addAppVideoLabel" width="1152">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="addAppVideoLabel">应用视频选择</h4>
                 <input type="hidden" id="tmpAppVideoName"/>
                 <input type="hidden" id="tmpAppVideoUrl"/>
             </div>
             <div class="modal-body">
                 <div class="quick-actions_homepage">
-                    <ul class="quick-actions"  id="appVideo-ul">
-                        <li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                    <ul class="quick-actions" id="appVideo-ul">
+                        <li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"  style="width:165px;height: 120px;">
+                            <!--<a href="#" >-->
+                                <video id="my-video1" class="video-js" controls preload="auto"
+                                       th:poster="${fileimgsrc}" data-setup="{}" width="165" height="105">
+                                    <source th:src="${fileApp.address}" type="video/mp4">
+                                    <!--<source th:src="${appVideoUrl}" type="video/mp4">-->
+                                </video>
+                            <span th:text="${fileApp.name}"></span>
+                            <!--</a>-->
+                        </li>
+                        <!--<li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>-->
                     </ul>
                 </div>
             </div>
@@ -319,15 +352,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="addImageLabel">图片选择</h4>
                 <input type="hidden" id="tmpImageName"/>
                 <input type="hidden" id="tmpImageUrl"/>
             </div>
             <div class="modal-body">
                 <div class="quick-actions_homepage">
-                    <ul class="quick-actions"  id="image-ul">
-                        <li th:each="fileImage:${filelistImage}" th:value="${fileImage.address}" class="bg_lg"><img th:src="${fileImage.address}" style="width:120px;height: 80px;"/><span th:text="${fileImage.name}"></span></li>
+                    <ul class="quick-actions" id="image-ul">
+                        <li th:each="fileImage:${filelistImage}" th:value="${fileImage.address}" class="bg_lg"><img
+                                th:src="${fileImage.address}" style="width:120px;height: 80px;"/><span
+                                th:text="${fileImage.name}"></span></li>
                         <!--<li th:each="fileImage:${filelistImage}" th:value="${fileImage.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileImage.name}"></span></a></li>-->
                     </ul>
                 </div>
@@ -362,28 +398,26 @@
         // $("#packageDiv").hide();
 
         $("#video-ul li").click(
-
-            function() {
-                $(this).css("background","#2E363F").siblings().css("background","#28b779");
-                $("#tmpFileName").val($(this).text());
+            function () {
+                $(this).css("background", "#2E363F").siblings().css("background", "#28b779");
+                $("#tmpFileName").val($(this).children("span").text());
                 $("#tmpFileUrl").val($(this).attr("value"));
             });
         $("#app-ul li").click(
-
-            function() {
-                $(this).css("background","#2E363F").siblings().css("background","#28b779");
-                $("#tmpAppName").val($(this).text());
+            function () {
+                $(this).css("background", "#2E363F").siblings().css("background", "#28b779");
+                $("#tmpAppName").val($(this).children("a").children("span").text());
                 $("#tmpAppUrl").val($(this).attr("value"));
             });
         $("#appVideo-ul li").click(
-            function() {
-                $(this).css("background","#2E363F").siblings().css("background","#28b779");
-                $("#tmpAppVideoName").val($(this).text());
+            function () {
+                $(this).css("background", "#2E363F").siblings().css("background", "#28b779");
+                $("#tmpAppVideoName").val($(this).children("span").text());
                 $("#tmpAppVideoUrl").val($(this).attr("value"));
             });
         $("#image-ul li").click(
-            function() {
-                $(this).css("background","#2E363F").siblings().css("background","#28b779");
+            function () {
+                $(this).css("background", "#2E363F").siblings().css("background", "#28b779");
                 $("#tmpImageName").val($(this).text());
                 $("#tmpImageUrl").val($(this).attr("value"));
             });
@@ -412,17 +446,17 @@
     }
 
     function chooseFile() {
-        if ($("#filetype").val() == 0){
+        if ($("#filetype").val() == 0) {
 
             $('#ossApp').modal()
-        }else {
+        } else {
             $('#ossFile').modal()
         }
     }
     function selectFile() {
         var tmpFileName = $("#tmpFileName").val();
         var tmpFileUrl = $("#tmpFileUrl").val();
-        if (tmpFileName==null||tmpFileName==""||tmpFileUrl==null||tmpFileUrl==""){
+        if (tmpFileName == null || tmpFileName == "" || tmpFileUrl == null || tmpFileUrl == "") {
             alert("请选择一个视频");
             return;
         }
@@ -433,7 +467,7 @@
     function selectApp() {
         var tmpAppName = $("#tmpAppName").val();
         var tmpAppUrl = $("#tmpAppUrl").val();
-        if (tmpAppName==null||tmpAppName==""||tmpAppUrl==null||tmpAppUrl==""){
+        if (tmpAppName == null || tmpAppName == "" || tmpAppUrl == null || tmpAppUrl == "") {
             alert("请选择一个应用");
             return;
         }
@@ -444,7 +478,7 @@
     function selectAppVideo() {
         var tmpAppVideoName = $("#tmpAppVideoName").val();
         var tmpAppVideoUrl = $("#tmpAppVideoUrl").val();
-        if (tmpAppVideoName==null||tmpAppVideoName==""||tmpAppVideoUrl==null||tmpAppVideoUrl==""){
+        if (tmpAppVideoName == null || tmpAppVideoName == "" || tmpAppVideoUrl == null || tmpAppVideoUrl == "") {
             alert("请选择一个应用");
             return;
         }
@@ -455,7 +489,7 @@
     function selectImage() {
         var tmpImageName = $("#tmpImageName").val();
         var tmpImageUrl = $("#tmpImageUrl").val();
-        if (tmpImageName==null||tmpImageName==""||tmpImageUrl==null||tmpImageUrl==""){
+        if (tmpImageName == null || tmpImageName == "" || tmpImageUrl == null || tmpImageUrl == "") {
             alert("请选择一个应用");
             return;
         }

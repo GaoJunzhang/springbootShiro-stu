@@ -31,8 +31,8 @@
     </div>
     <div class="quick-actions_homepage">
         <ul class="quick-actions"  >
-            <li th:each="fileList:${fileListApp}" class="bg_ly"><a th:href="'/ossFileSource?filename='+${fileList.name}"><div> <i class="icon-globe"></i><span th:text="${fileList.name}"></span></a></li>
-            <li th:each="fileVideo:${fileListVideo}" class="bg_lg"><a th:href="'/ossFileSource?filename='+${fileVideo.name}"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+            <li th:each="fileList:${fileListApp}" class="bg_ly"><a th:href="'/ossFileSource?filename='+${fileList.name}"><i class="icon-globe"></i><span th:text="${fileList.name}"></span></a></li>
+            <li th:each="fileVideo:${fileListVideo}" class="bg_lg"><a th:href="'/ossFileSource?filename='+${fileVideo.name}"><i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
         </ul>
     </div>
 </div>

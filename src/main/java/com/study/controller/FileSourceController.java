@@ -128,6 +128,7 @@ public class FileSourceController {
         model.addFlashAttribute("disciplines",fileInfo.getDisciplines());
         model.addFlashAttribute("appVideoUrl",fileInfo.getAppvideourl());
         model.addFlashAttribute("pdfUrl",fileInfo.getPdfurl());
+        model.addFlashAttribute("packageName",fileInfo.getPackageName());
         return "redirect:/editfileView";
     }
 

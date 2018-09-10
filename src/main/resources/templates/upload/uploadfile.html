@@ -225,7 +225,17 @@
                 <div class="modal-body">
                     <div class="quick-actions_homepage">
                         <ul class="quick-actions"  id="video-ul">
-                            <li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>
+                            <li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"  style="width:165px;height: 125px;">
+                                <!--<a href="#" >-->
+                                <video id="my-video1" class="video-js" controls preload="auto"
+                                       th:poster="${fileimgsrc}" data-setup="{}" width="165" height="105">
+                                    <source th:src="${fileVideo.address}" type="video/mp4">
+                                    <!--<source th:src="${appVideoUrl}" type="video/mp4">-->
+                                </video>
+                                <span th:text="${fileVideo.name}"></span>
+                                <!--</a>-->
+                            </li>
+                            <!--<li th:each="fileVideo:${fileListVideo}" th:value="${fileVideo.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileVideo.name}"></span></a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -250,7 +260,7 @@
             <div class="modal-body">
                 <div class="quick-actions_homepage">
                     <ul class="quick-actions"  id="app-ul">
-                        <li th:each="fileApp:${fileListApp}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                        <li th:each="fileApp:${fileListApp}" th:value="${fileApp.address}" class="bg_lg"><a href="#"> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -273,7 +283,17 @@
             <div class="modal-body">
                 <div class="quick-actions_homepage">
                     <ul class="quick-actions"  id="appVideo-ul">
-                        <li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>
+                        <li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"  style="width:165px;height: 125px;">
+                            <!--<a href="#" >-->
+                            <video id="my-video1" class="video-js" controls preload="auto"
+                                   th:poster="${fileimgsrc}" data-setup="{}" width="165" height="105">
+                                <source th:src="${fileApp.address}" type="video/mp4">
+                                <!--<source th:src="${appVideoUrl}" type="video/mp4">-->
+                            </video>
+                            <span th:text="${fileApp.name}"></span>
+                            <!--</a>-->
+                        </li>
+                        <!--<li th:each="fileApp:${filePreVideo}" th:value="${fileApp.address}" class="bg_lg"><a href="#"><div> <i class="icon-facetime-video"></i><span th:text="${fileApp.name}"></span></a></li>-->
                     </ul>
                 </div>
             </div>
@@ -333,7 +353,8 @@
 
             function() {
                 $(this).css("background","#2E363F").siblings().css("background","#28b779");
-                $("#tmpFileName").val($(this).text());
+//                $("#tmpFileName").val($(this).text());
+                $("#tmpFileName").val($(this).children("span").text());
                 $("#tmpFileUrl").val($(this).attr("value"));
             });
         $("#app-ul li").click(
@@ -346,7 +367,7 @@
         $("#appVideo-ul li").click(
             function() {
                 $(this).css("background","#2E363F").siblings().css("background","#28b779");
-                $("#tmpAppVideoName").val($(this).text());
+                $("#tmpAppVideoName").val($(this).children("span").text());
                 $("#tmpAppVideoUrl").val($(this).attr("value"));
             });
         $("#image-ul li").click(

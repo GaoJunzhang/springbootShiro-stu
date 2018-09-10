@@ -1,5 +1,6 @@
 package com.study.model;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,8 @@ public class FileInfo {
         this.pdfurl=pdfurl;
         this.appvideourl=appvideourl;
     }
-
+    @Column(name = "package_name")
+    private String packageName;
     /**
      * @return id
      */
@@ -187,5 +189,13 @@ public class FileInfo {
 
     public void setAppvideourl(String appvideourl) {
         this.appvideourl = appvideourl;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }
