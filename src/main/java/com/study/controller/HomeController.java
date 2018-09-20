@@ -97,7 +97,7 @@ public class HomeController {
             String strTemp = "";
             for (int i = 0; i < objectSummaries.size(); i++) {
                 strTemp = objectSummaries.get(i).getKey();
-                if (strTemp.contains("lefile")) {
+                if (strTemp.contains("lefile")&&strTemp.contains(".")) {
                     Map map = new HashMap();
                     map.put("address", accessUrl + "/" + strTemp);
                     map.put("name", strTemp.replace("lefile/", ""));
@@ -107,7 +107,7 @@ public class HomeController {
                         listVideo.add(map);
                     }
                 }
-                if (strTemp.contains("imgfile")) {
+                if (strTemp.contains("imgfile")&&strTemp.contains(".")) {
                     Map map = new HashMap();
                     map.put("address", accessUrl + "/" + strTemp);
                     map.put("name", strTemp.replace("imgfile/", ""));
@@ -145,7 +145,7 @@ public class HomeController {
             String strTemp = "";
             for (int i = 0; i < objectSummaries.size(); i++) {
                 strTemp = objectSummaries.get(i).getKey();
-                if (strTemp.contains("lefile")) {
+                if (strTemp.contains("lefile")&&strTemp.contains(".")) {
                     Map map = new HashMap();
                     map.put("address", accessUrl + "/" + strTemp);
                     map.put("name", strTemp.replace("lefile/", ""));
@@ -155,7 +155,7 @@ public class HomeController {
                         listVideo.add(map);
                     }
                 }
-                if (strTemp.contains("imgfile")) {
+                if (strTemp.contains("imgfile")&&strTemp.contains(".")) {
                     Map map = new HashMap();
                     map.put("address", accessUrl + "/" + strTemp);
                     map.put("name", strTemp.replace("imgfile/", ""));
